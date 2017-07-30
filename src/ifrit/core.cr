@@ -1,19 +1,10 @@
 class Object
   macro singleton_delegate(*methods, to)
     {% for m in method %}
-      def self.{{m.id}}
-        {{to[:to].id}}.{{m.id}}
+      def self.{{m.id}}(*args, **opts)
+        {{to[:to].id}}.{{m.id}}(*args, **opts)
       end
     {% end %}
-  end
-
-  macro alias_method(original_name, new_name)
-
-  end
-
-  macro alias_method_chain(original_name, suffix)
-
-
   end
 
   def blank? : Bool
@@ -83,5 +74,25 @@ end
 struct NamedTuple
   def blank?
     empty?
+  end
+end
+
+#
+# to bool
+#
+
+class String
+  def to_bool
+    return true if self == true || self =~ (/^(true|t|yes|y|1)$/i)
+    return false if self == false || self.blank? || self =~ (/^(false|f|no|n|0)$/i)
+    raise ArgumentError.new("invalid value for Boolean: \"#{self}\"")
+  end
+end
+
+struct Number
+  def to_bool
+    return true if self == 1
+    return false if self == 0
+    raise ArgumentError.new("invalid value for Boolean: \"#{self}\"")
   end
 end

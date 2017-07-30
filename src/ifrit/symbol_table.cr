@@ -14,7 +14,7 @@ class SymbolTable
     end
   end
 
-  extend Methods
+  include Methods
 
   SYM_HASH = {} of Symbol => String
   STR_HASH = {} of String => Symbol

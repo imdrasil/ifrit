@@ -26,4 +26,28 @@ describe "Core" do
       {a: 2}.blank?.should eq(false)
     end
   end
+
+  describe "#to_bool" do
+    context "String" do
+      it "returns true with correct inputs" do
+        "t".to_bool.should eq(true)
+      end
+
+      it "returns true with correct inputs" do
+        "n".to_bool.should eq(false)
+      end
+    end
+
+    context "Number" do
+      it "returns true for 1" do
+        1.to_bool.should eq(true)
+        1.0.to_bool.should eq(true)
+      end
+
+      it "returns false for 0" do
+        0.to_bool.should eq(false)
+        0.0.to_bool.should eq(false)
+      end
+    end
+  end
 end
