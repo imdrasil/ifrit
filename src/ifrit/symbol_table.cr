@@ -1,3 +1,5 @@
+require "./version"
+
 class SymbolTable
   class UnknownSymbol < Exception
   end

@@ -1,3 +1,5 @@
+require "./version"
+
 class HashWithIndifferentAccess(V) < Hash(String, V)
   def []=(key : Symbol, value : V)
     self[key.to_s] = value

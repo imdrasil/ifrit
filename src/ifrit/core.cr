@@ -1,3 +1,5 @@
+require "./version"
+
 class Object
   macro singleton_delegate(*methods, to)
     {% for m in method %}

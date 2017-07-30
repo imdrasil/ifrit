@@ -1,12 +1,35 @@
+require "./version"
+
 module Ifrit
   macro render_macrosses
-    # accepts only compile-time hashes
+    # accepts only hash literals
     # example: Ifrit.typed_hash({"a" => 1, "b" => "b"}, String, Int32 | String)
     macro typed_hash(hash, key, types)
       begin
         %hash = {} of \{{key.id}} => \{{types.id}}
+        \{% type = key.resolve %}
         \{% for k, v in hash %}
-          %hash[\{{k}}] = \{{v}}.as(\{{types.id}})
+          \{% if k.is_a?(MacroId) %}
+            \{% if type.union? %}
+              \{% p type.union_types %}
+              \{% if type.union_types.includes?(String) %}
+                \{% name = k.stringify %}
+              \{% elsif type.union_types.includes?(Symbol) %}
+                \{% name = ":#{k}".id %}
+              \{% else %}
+                \{% name = k %}
+              \{% end %}
+            \{% elsif type == String %}
+              \{% name = "#{k}" %}
+            \{% elsif  type == Symbol %}
+              \{% name = ":#{k}".id %}
+            \{% else %}
+              \{% name = k %}
+            \{% end %}
+          \{% else %}
+            \{% name = k %}
+          \{% end %}
+          %hash[\{{name}}] = \{{v}}.as(\{{types.id}})
         \{% end %}
         %hash
       end
@@ -31,21 +54,26 @@ module Ifrit
       end
     end
 
-    # accepts compile-time hash
+    # accepts hash literal
     macro sym_hash(hash, types)
-      Support.typed_hash(\{{hash}}, Symbol, \{{types}})
+      Ifrit.typed_hash(\{{hash}}, Symbol, \{{types}})
     end
 
-    # accepts compile-time hash
+    # accepts hash literal
     macro str_hash(hash, types)
-      Support.typed_hash(\{{hash}}, String, \{{types}})
+      Ifrit.typed_hash(\{{hash}}, String, \{{types}})
     end
 
     # accepts any array
     macro typed_array_cast(arr, klass)
-      \{{arr}}.map { |e| e.as(\{{klass}}) }
+      begin
+        array = [] of \{{klass}}
+        \{{arr}}.each { |e| array << e.as(\{{klass}}) }
+        array
+      end
     end
 
+    # accepts arrayliteral
     macro typed_array(arr, klass)
       begin
         [
@@ -60,8 +88,8 @@ module Ifrit
     macro stringify_hash(hash, types)
       begin
         %hash = {} of String =>\{{types}}
-        \{{hash.id}}.each do |k, v|
-          %hash[k.to_s] = v
+        \{{hash}}.each do |k, v|
+          %hash[k.to_s] = v.as(\{{types}})
         end
         %hash
       end
@@ -69,4 +97,8 @@ module Ifrit
   end
 
   render_macrosses
+
+  macro extended
+    ::Ifrit.render_macrosses
+  end
 end

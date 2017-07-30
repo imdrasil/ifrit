@@ -1,4 +1,5 @@
 require "json"
+require "./version"
 
 module InheritableJSON
   macro extended
