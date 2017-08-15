@@ -73,7 +73,7 @@ module Ifrit
       end
     end
 
-    # accepts arrayliteral
+    # accepts array literal
     macro typed_array(arr, klass)
       begin
         [
