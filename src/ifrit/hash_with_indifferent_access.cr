@@ -1,6 +1,23 @@
 require "./version"
 
+# Allows to access values by both `String` and `Symbol` key.
 class HashWithIndifferentAccess(V) < Hash(String, V)
+  def self.new(hash : Hash)
+    new_hash = new
+    hash.each do |key, value|
+      new_hash[key.to_s] = value
+    end
+    new_hash
+  end
+
+  def self.new(named_tuple : NamedTuple)
+    new_hash = new
+    named_tuple.each do |key, value|
+      new_hash[key.to_s] = value
+    end
+    new_hash
+  end
+
   def []=(key : Symbol, value : V)
     self[key.to_s] = value
   end

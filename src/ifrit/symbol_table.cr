@@ -1,5 +1,14 @@
 require "./version"
 
+# Allows to register symbols and then convert strings to them.
+#
+# ```
+# include Ifrit::SymbolTable
+#
+# a = s(:asd)
+# # ...
+# "asd".to_sym # :asd
+# ```
 class SymbolTable
   class UnknownSymbol < Exception
   end

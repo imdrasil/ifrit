@@ -1,6 +1,7 @@
-# This is a port of [inflector.cr](https://github.com/phoffer/inflector.cr) shard
-# to compile time execution
 module Ifrit
+  # Allows to pluralize values in compile-time.
+  #
+  # This is a port of [inflector.cr](https://github.com/phoffer/inflector.cr).
   module Inflector
     UNCOUNTABLE            = %w(equipment information rice money species series fish sheep jeans police)
     IRREGULAR_PLURAL_RULES = [
@@ -75,6 +76,7 @@ module Ifrit
       [/s$/i, "", /s$/],
     ]
 
+    # Pluralize given string literal.
     macro pluralize(string)
       {% looking = true %}
       {% if !UNCOUNTABLE.includes?(string) %}
@@ -104,6 +106,7 @@ module Ifrit
       {% end %}
     end
 
+    # Singularize given string literal.
     macro singularize(string)
       {% looking = true %}
       {% if !UNCOUNTABLE.includes?(string) %}

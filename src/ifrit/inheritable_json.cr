@@ -1,6 +1,7 @@
 require "json"
 require "./version"
 
+# Allows to define class with JSON definition and allows inheritance.
 module InheritableJSON
   macro extended
     INHERITABLE_JSON_MAPPING = {} of String => Hash(String, String)
@@ -46,7 +47,6 @@ module InheritableJSON
       \\{% end %}
     end
 
-
     # This is a convenience method to allow invoking `JSON.mapping`
     # with named arguments instead of with a hash/named-tuple literal.
     macro json_mapping(**properties)
@@ -55,7 +55,6 @@ module InheritableJSON
   end
 
   macro render_methods(klass)
-
     {% definition = klass.constant("INHERITABLE_JSON_MAPPING") %}
     {% strict = false %}
     def initialize(%pull : ::JSON::PullParser)

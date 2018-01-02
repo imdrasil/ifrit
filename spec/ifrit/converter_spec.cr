@@ -17,10 +17,10 @@ describe "Converters" do
   end
 
   describe "%sym_hash_cast" do
-    it "converts hash to given type" do
+    pending "converts hash to given type" do
     end
 
-    it "converts named tuple to hash with given type" do
+    pending "converts named tuple to hash with given type" do
     end
   end
 

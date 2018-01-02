@@ -2,6 +2,41 @@ require "../spec_helper"
 require "../../src/ifrit/hash_with_indifferent_access"
 
 describe HashWithIndifferentAccess do
+  describe "::new" do
+    context "without arguemnts" do
+      it "creates empty object" do
+        HashWithIndifferentAccess(String).new.empty?.should be_true
+      end
+    end
+
+    context "from string based hash" do
+      it "copies all key-value pairs" do
+        hash = { "k1" => 1, "k2" => 2}
+        subject = HashWithIndifferentAccess(Int32).new(hash)
+        subject["k1"].should eq(1)
+        subject["k2"].should eq(2)
+      end
+    end
+
+    context "from symbol based hash" do
+      it "copies all key-value pairs" do
+        hash = { :k1 => "1", :k2 => "2"}
+        subject = HashWithIndifferentAccess(String).new(hash)
+        subject[:k1].should eq("1")
+        subject[:k2].should eq("2")
+      end
+    end
+
+    context "from named tuple" do
+      it "copies all key-value pairs" do
+        tuple = { k1: 1, k2: "2"}
+        subject = HashWithIndifferentAccess(String | Int32).new(tuple)
+        subject["k1"].should eq(1)
+        subject["k2"].should eq("2")
+      end
+    end
+  end
+
   describe "#[]=" do
     it "sets value" do
       h = HashWithIndifferentAccess(Int32).new
