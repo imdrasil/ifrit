@@ -13,7 +13,6 @@
 
 #     end
 
-
 #     def self.sort(array : Array(String))
 #       array.sort_by { |element| normalize(element) }
 #     end

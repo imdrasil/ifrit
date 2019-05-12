@@ -3,7 +3,7 @@ require "./version"
 module Ifrit
   # Renders convertable macros.
   #
-  # These convert macros are designed to provide interface for converting hash to exact type 
+  # These convert macros are designed to provide interface for converting hash to exact type
   # (e.g. `{"asd" => "asd"} of String | Int64 => Float32 | Symbol | String` to `String => String`).
   # Adds next macros:
   # - `%typed_hash` - converts given hash literal to one with given key type (`key`) and value type (`types`); without cycles;

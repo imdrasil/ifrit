@@ -106,7 +106,7 @@ describe InheritableJSON do
       end
 
       it "deserialize" do
-        JsonWithConverter.from_json(%({"a":"asd","b":2,"date":"2000-01-13"})).date.should eq(Time.new(2000, 1, 13))
+        JsonWithConverter.from_json(%({"a":"asd","b":2,"date":"2000-01-13"})).date.should eq(Time.utc(2000, 1, 13))
       end
     end
 

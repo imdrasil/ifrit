@@ -12,7 +12,7 @@ class Object
   # class B
   #   singleton_delegate :method1, to: A
   # end
-  #```
+  # ```
   macro singleton_delegate(*methods, to)
     {% for m in method %}
       def self.{{m.id}}(*args, **opts)
@@ -43,7 +43,7 @@ end
 # struct B
 #   singleton_delegate :method1, to: A
 # end
-#```
+# ```
 abstract struct Struct
   macro singleton_delegate(*methods, to)
     {% for m in method %}
