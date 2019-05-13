@@ -11,7 +11,7 @@ describe HashWithIndifferentAccess do
 
     context "from string based hash" do
       it "copies all key-value pairs" do
-        hash = { "k1" => 1, "k2" => 2}
+        hash = {"k1" => 1, "k2" => 2}
         subject = HashWithIndifferentAccess(Int32).new(hash)
         subject["k1"].should eq(1)
         subject["k2"].should eq(2)
@@ -20,7 +20,7 @@ describe HashWithIndifferentAccess do
 
     context "from symbol based hash" do
       it "copies all key-value pairs" do
-        hash = { :k1 => "1", :k2 => "2"}
+        hash = {:k1 => "1", :k2 => "2"}
         subject = HashWithIndifferentAccess(String).new(hash)
         subject[:k1].should eq("1")
         subject[:k2].should eq("2")
@@ -29,7 +29,7 @@ describe HashWithIndifferentAccess do
 
     context "from named tuple" do
       it "copies all key-value pairs" do
-        tuple = { k1: 1, k2: "2"}
+        tuple = {k1: 1, k2: "2"}
         subject = HashWithIndifferentAccess(String | Int32).new(tuple)
         subject["k1"].should eq(1)
         subject["k2"].should eq("2")
