@@ -1,4 +1,4 @@
-# Ifrit [![Build Status](https://travis-ci.org/imdrasil/ifrit.svg)](https://travis-ci.org/imdrasil/ifrit) [![Latest Release](https://img.shields.io/github/release/imdrasil/ifrit.svg)](https://github.com/imdrasil/ifrit/releases)
+# Ifrit [![Latest Release](https://img.shields.io/github/release/imdrasil/ifrit.svg)](https://github.com/imdrasil/ifrit/releases)
 
 Set of useful classes, patches and hacks. Some of them are not "good" enough so be ready to make a deal with **Ifrit**.
 
