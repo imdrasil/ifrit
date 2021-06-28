@@ -101,7 +101,7 @@ describe InheritableJSON do
     context "format" do
       it "serialize" do
         c = JsonWithConverter.new
-        c.date = Time.new(2000, 1, 13)
+        c.date = Time.local(2000, 1, 13)
         c.to_json.should eq(%({"a":"asd","b":2,"date":"2000-01-13"}))
       end
 
